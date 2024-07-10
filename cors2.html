@@ -5,7 +5,6 @@
 </head>
 <body>
 <script>
-// Function to get all cookies as an object
 function getAllCookies() {
     let cookies = {};
     let cookieArr = document.cookie.split(';');
@@ -16,17 +15,19 @@ function getAllCookies() {
     return cookies;
 }
 
-// Fetch cookies from bugbountytraining.com
 var xhttp = new XMLHttpRequest();
 xhttp.onreadystatechange = function() {
-    if (this.readyState == 4 && this.status == 200) {
-        // Log all cookies to the console
-        console.log('Cookies:', document.cookie);
-        // Get cookies as an object
-        var cookies = getAllCookies();
-        // Display each cookie in an alert
-        for (let name in cookies) {
-            alert(name + ': ' + cookies[name]);
+    if (this.readyState == 4) {
+        if (this.status == 200) {
+            console.log('Cookies:', document.cookie);
+            var cookies = getAllCookies();
+            for (let name in cookies) {
+                alert(name + ': ' + cookies[name]);
+            }
+        } else if (this.status == 403) {
+            alert('Access forbidden. You don\'t have permission to access this resource.');
+        } else {
+            alert('Request failed with status: ' + this.status);
         }
     }
 };
